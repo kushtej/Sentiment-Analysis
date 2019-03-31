@@ -14,7 +14,7 @@ import pandas as pd
 import re
 
 
-# # # # TWITTER CLIENT # # # #
+
 class TwitterClient():
     def __init__(self, twitter_user=None):
         self.auth = TwitterAuthenticator().authenticate_twitter_app()
@@ -44,7 +44,7 @@ class TwitterClient():
         return home_timeline_tweets
 
 
-# # # # TWITTER AUTHENTICATER # # # #
+
 class TwitterAuthenticator():
 
     def authenticate_twitter_app(self):
@@ -52,7 +52,6 @@ class TwitterAuthenticator():
         auth.set_access_token(twitter_credentials.ACCESS_TOKEN, twitter_credentials.ACCESS_TOKEN_SECRET)
         return auth
 
-# # # # TWITTER STREAMER # # # #
 class TwitterStreamer():
     """
     Class for streaming and processing live tweets.
@@ -61,16 +60,15 @@ class TwitterStreamer():
         self.twitter_autenticator = TwitterAuthenticator()    
 
     def stream_tweets(self, fetched_tweets_filename, hash_tag_list):
-        # This handles Twitter authetification and the connection to Twitter Streaming API
+       
         listener = TwitterListener(fetched_tweets_filename)
         auth = self.twitter_autenticator.authenticate_twitter_app() 
         stream = Stream(auth, listener)
 
-        # This line filter Twitter Streams to capture data by the keywords: 
+       
         stream.filter(track=hash_tag_list)
 
 
-# # # # TWITTER STREAM LISTENER # # # #
 class TwitterListener(StreamListener):
     """
     This is a basic listener that just prints received tweets to stdout.
@@ -90,14 +88,14 @@ class TwitterListener(StreamListener):
           
     def on_error(self, status):
         if status == 420:
-            # Returning False on_data method in case rate limit occurs.
+           
             return False
         print(status)
 
 
 class TweetAnalyzer():
     """
-    Functionality for analyzing and categorizing content from tweets.
+    Functionality for analyzing and categorizing content from tweets. 
     """
 
     def clean_tweet(self, tweet):
